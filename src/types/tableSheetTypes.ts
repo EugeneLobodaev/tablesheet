@@ -16,3 +16,11 @@ export interface ButtonProps {
   key?: any;
   className?: string;
 }
+
+export interface InputType {
+  defaultValue: string | number
+  type: string
+  placeholder: string 
+  name: string 
+  onChange: any
+}

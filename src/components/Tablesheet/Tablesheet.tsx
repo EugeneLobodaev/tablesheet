@@ -3,15 +3,18 @@ import css from "./Tablesheet.module.css";
 import { fetchData } from "../../api/api";
 import { TableSheetResponseType } from "../../types/tableSheetTypes";
 import { Button } from "../Button";
+import { Input } from "../Input/Input";
 
 export const Tablesheet = () => {
   const [table, setTable] = useState<TableSheetResponseType[]>([]);
   const [pageNumber, setPageNumber] = useState<string>("1");
   const [completed, setCompleted] = useState<string>();
-  const [sorted, setSorted] = useState<string>("_sort=title");
-  const [order, setOrder] = useState<string>("_order=asc");
+  const [sorted, setSorted] = useState<string>("_sort=userId");
+  const [order, setOrder] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [inputValue, setInputValue] = useState<number | string>("");
   const pageLimit = 15;
+
   let url = `https://jsonplaceholder.typicode.com/todos?_limit=${pageLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
 
   const nextPage = () => {
@@ -36,22 +39,37 @@ export const Tablesheet = () => {
   const setCompletedTrue = () => {
     return setCompleted("completed=true");
   };
-  const setOrderAZ = () => {
-    setOrder("_order=asc");
-  };
-  const setOrderZA = () => {
-    setOrder("_order=desc");
-  };
   const setSortedTitle = () => {
     setSorted("_sort=title");
+    setPageNumber("1");
   };
   const setSortedId = () => {
     setSorted("_sort=userId");
+    setPageNumber("1");
+  };
+  const setOrderAZ = () => {
+    setOrder("_order=asc");
+    setSorted((prev) => prev);
+    setPageNumber("1");
+  };
+  const setOrderZA = () => {
+    setOrder("_order=desc");
+    setSorted((prev) => prev);
+    setPageNumber("1");
   };
   const setSearchValue = (e: string) => {
     setPageNumber("1");
-    setOrderAZ()
+    setOrderAZ();
     setSearch(e);
+  };
+
+  const reset = () => {
+    setPageNumber("1");
+    setCompleted("");
+    setOrder("_order=asc");
+    setSorted("_sort=userId");
+    setSearch("");
+    setInputValue("");
   };
 
   useEffect(() => {
@@ -108,32 +126,34 @@ export const Tablesheet = () => {
         <select
           name="sorted"
           onChange={() => {
-            sorted === "_sort=userId" || "" ? setSortedTitle() : setSortedId();
+            sorted === "_sort=title" || "" ? setSortedId() : setSortedTitle();
           }}
         >
-          <option>Title</option>
           <option>ID</option>
+          <option>Title</option>
         </select>
       </form>
       <form action="">
         <select
           name="order"
           onChange={() => {
-            order === "_order=desc" || "" ? setOrderAZ() : setOrderZA();
+            order === "_order=desc" ? setOrderAZ() : setOrderZA();
           }}
         >
           <option>A-Z</option>
           <option>Z-A</option>
         </select>
       </form>
-      <form action="">
-        <input
-          type="search"
-          placeholder="Search"
-          name="search"
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-      </form>
+      <Input
+        type={"search"}
+        name={"search"}
+        onChange={(e: React.FormEvent<HTMLInputElement>) =>
+          setSearchValue(e.currentTarget.value)
+        }
+        placeholder={"search"}
+        defaultValue={inputValue}
+      />
+      <Button onClick={() => reset()} name={"Reset"} />
     </div>
   );
 };
