@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
 }
 
 
@@ -23,6 +24,20 @@
 
 .button_wrapper {
     display: flex;
-    gap: 40px;
-    margin-top: 20px;
+    gap: 10px;
+}
+
+.page {
+    border: solid black 0.5px;
+}
+
+.current_page {
+    background-color: rgba(128, 128, 128, 0.753);
+    scale: 1.2;
+
+}
+
+.button {
+    width: 100px;
+    height: 35px;
 }

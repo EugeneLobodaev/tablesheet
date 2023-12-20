@@ -7,30 +7,31 @@ import { Input } from "../Input/Input";
 
 export const Tablesheet = () => {
   const [table, setTable] = useState<TableSheetResponseType[]>([]);
-  const [pageNumber, setPageNumber] = useState<string>("1");
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [completed, setCompleted] = useState<string>();
   const [sorted, setSorted] = useState<string>("_sort=userId");
   const [order, setOrder] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [inputValue, setInputValue] = useState<number | string>("");
-  const pageLimit = 15;
+  const tableLimit = 15;
+  const buttons: number[] = [];
 
-  let url = `https://jsonplaceholder.typicode.com/todos?_limit=${pageLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
-
+  let url = `https://jsonplaceholder.typicode.com/todos?_limit=${tableLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
+  // Рассматривал вариант сделать с редаксом, но потратил бы намного больше времени
   const nextPage = () => {
     setPageNumber((prev): any => {
       if (table.length < 15) {
         return setPageNumber(prev);
       }
-      return (Number(prev) + 1).toString();
+      return Number(prev) + 1;
     });
   };
   const prevPage = () => {
     setPageNumber((prev): any => {
-      if (prev === "1") {
-        return setPageNumber("1");
+      if (prev === 1) {
+        return setPageNumber(1);
       }
-      return (Number(prev) - 1).toString();
+      return Number(prev) - 1;
     });
   };
   const setCompletedFalse = () => {
@@ -41,36 +42,41 @@ export const Tablesheet = () => {
   };
   const setSortedTitle = () => {
     setSorted("_sort=title");
-    setPageNumber("1");
+    setPageNumber(1);
   };
   const setSortedId = () => {
     setSorted("_sort=userId");
-    setPageNumber("1");
+    setPageNumber(1);
   };
   const setOrderAZ = () => {
     setOrder("_order=asc");
     setSorted((prev) => prev);
-    setPageNumber("1");
+    setPageNumber(1);
   };
   const setOrderZA = () => {
     setOrder("_order=desc");
     setSorted((prev) => prev);
-    setPageNumber("1");
+    setPageNumber(1);
   };
   const setSearchValue = (e: string) => {
-    setPageNumber("1");
+    setPageNumber(1);
     setOrderAZ();
     setSearch(e);
   };
-
   const reset = () => {
-    setPageNumber("1");
+    setPageNumber(1);
     setCompleted("");
     setOrder("_order=asc");
     setSorted("_sort=userId");
     setSearch("");
     setInputValue("");
   };
+  const renderButtons = () => {
+    for (let i = 1; i < 15; i++) {
+      buttons.push(i);
+    }
+  };
+  renderButtons();
 
   useEffect(() => {
     const getTable = async () => {
@@ -108,6 +114,16 @@ export const Tablesheet = () => {
           className={css.button}
           name={"Next Page"}
         />
+      </div>
+      <div className={css.button_wrapper}>
+        {buttons.map((item, index) => (
+          <Button
+            className={item === pageNumber ? css.current_page : css.page}
+            onClick={() => setPageNumber(item)}
+            name={item}
+            key={index}
+          />
+        ))}
       </div>
       <form action="">
         <select
@@ -153,7 +169,8 @@ export const Tablesheet = () => {
         placeholder={"search"}
         defaultValue={inputValue}
       />
-      <Button onClick={() => reset()} name={"Reset"} />
+
+      <Button onClick={() => reset()} name={"Reset"} className={css.button} />
     </div>
   );
 };

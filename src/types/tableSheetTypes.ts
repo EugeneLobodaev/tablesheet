@@ -12,7 +12,7 @@ export interface ActionTypes {
 
 export interface ButtonProps {
   onClick: any;
-  name: string;
+  name: string | number
   key?: any;
   className?: string;
 }
@@ -23,4 +23,10 @@ export interface InputType {
   placeholder: string 
   name: string 
   onChange: any
+}
+
+export interface PagiProps {
+  onClick: any
+  limit: number
+
 }
