@@ -50,6 +50,7 @@ export const Tablesheet = () => {
   };
   const setSearchValue = (e: string) => {
     setPageNumber("1");
+    setOrderAZ()
     setSearch(e);
   };
 
