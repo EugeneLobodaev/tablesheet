@@ -6,7 +6,7 @@ import { Button } from "../Button";
 
 export const Tablesheet = () => {
   const [table, setTable] = useState<TableSheetResponseType[]>([]);
-  const [pageNumber, setPageNumber] = useState<any>([1]);
+  const [pageNumber, setPageNumber] = useState<string>("1");
   const [completed, setCompleted] = useState<string>();
   const [sorted, setSorted] = useState<string>("_sort=title");
   const [order, setOrder] = useState<string>("_order=asc");
@@ -15,19 +15,19 @@ export const Tablesheet = () => {
   let url = `https://jsonplaceholder.typicode.com/todos?_limit=${pageLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
 
   const nextPage = () => {
-    setPageNumber((prev: number) => {
+    setPageNumber((prev): any => {
       if (table.length < 15) {
         return setPageNumber(prev);
       }
-      return Number(prev) + 1;
+      return (Number(prev) + 1).toString();
     });
   };
   const prevPage = () => {
-    setPageNumber((prev: number) => {
-      if (prev === 1) {
-        return setPageNumber(1);
+    setPageNumber((prev): any => {
+      if (prev === "1") {
+        return setPageNumber("1");
       }
-      return Number(prev) - 1;
+      return (Number(prev) - 1).toString();
     });
   };
   const setCompletedFalse = () => {
@@ -49,7 +49,7 @@ export const Tablesheet = () => {
     setSorted("_sort=userId");
   };
   const setSearchValue = (e: string) => {
-    setPageNumber(1);
+    setPageNumber("1");
     setSearch(e);
   };
 

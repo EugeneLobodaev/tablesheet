@@ -14,10 +14,5 @@ export interface ButtonProps {
   onClick: any;
   name: string;
   key?: any;
-  className?: string
-}
-
-export interface PagiProps {
-  limit: number;
-  onClick: any;
+  className?: string;
 }
