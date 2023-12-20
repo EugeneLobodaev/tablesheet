@@ -1,0 +1,28 @@
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.table_header {
+    border: 1px solid black;
+
+}
+
+.table_row {
+    border: 1px solid black;
+
+}
+
+.button_wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
