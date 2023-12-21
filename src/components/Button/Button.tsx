@@ -1,8 +1,7 @@
-import { ButtonProps } from "../../types/tableSheetTypes";
 
-export const Button = (props: ButtonProps) => {
+export const Button = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
-    <button className={props.className} onClick={props.onClick}>
+    <button {...props}>
       {props.name}
     </button>
   );

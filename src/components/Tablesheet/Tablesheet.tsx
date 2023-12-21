@@ -15,23 +15,15 @@ export const Tablesheet = () => {
   const [inputValue, setInputValue] = useState<number | string>("");
   const tableLimit = 15;
   const buttons: number[] = [];
-
-  let url = `https://jsonplaceholder.typicode.com/todos?_limit=${tableLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
   // Рассматривал вариант сделать с редаксом, но потратил бы намного больше времени
   const nextPage = () => {
     setPageNumber((prev): any => {
-      if (table.length < 15) {
-        return setPageNumber(prev);
-      }
-      return Number(prev) + 1;
+      setPageNumber(prev + 1);
     });
   };
   const prevPage = () => {
     setPageNumber((prev): any => {
-      if (prev === 1) {
-        return setPageNumber(1);
-      }
-      return Number(prev) - 1;
+      setPageNumber(prev - 1);
     });
   };
   const setCompletedFalse = () => {
@@ -71,6 +63,7 @@ export const Tablesheet = () => {
     setSearch("");
     setInputValue("");
   };
+
   const renderButtons = () => {
     for (let i = 1; i < 15; i++) {
       buttons.push(i);
@@ -79,11 +72,12 @@ export const Tablesheet = () => {
   renderButtons();
 
   useEffect(() => {
+    let url = `https://jsonplaceholder.typicode.com/todos?_limit=${tableLimit}&_page=${pageNumber}&${completed}&${sorted}&${order}&title_like=${search}`;
     const getTable = async () => {
       return fetchData(url).then((data) => setTable(data));
     };
     getTable();
-  }, [pageNumber, url, search]);
+  }, [completed, order, pageNumber, search, sorted]);
 
   return (
     <div className={css.root}>
@@ -105,12 +99,14 @@ export const Tablesheet = () => {
       </table>
       <div className={css.button_wrapper}>
         <Button
+          disabled={pageNumber === 1}
           onClick={() => prevPage()}
           className={css.button}
           name={"Previous Page"}
         />
         <Button
           onClick={() => nextPage()}
+          disabled={pageNumber === 14}
           className={css.button}
           name={"Next Page"}
         />
@@ -120,7 +116,7 @@ export const Tablesheet = () => {
           <Button
             className={item === pageNumber ? css.current_page : css.page}
             onClick={() => setPageNumber(item)}
-            name={item}
+            name={item.toString()}
             key={index}
           />
         ))}
@@ -163,13 +159,10 @@ export const Tablesheet = () => {
       <Input
         type={"search"}
         name={"search"}
-        onChange={(e: React.FormEvent<HTMLInputElement>) =>
-          setSearchValue(e.currentTarget.value)
-        }
+        onChange={(e) => setSearchValue(e.currentTarget.value)}
         placeholder={"search"}
         defaultValue={inputValue}
       />
-
       <Button onClick={() => reset()} name={"Reset"} className={css.button} />
     </div>
   );

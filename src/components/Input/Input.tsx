@@ -1,15 +1,7 @@
-import { InputType } from "../../types/tableSheetTypes";
-
-export const Input = (props: InputType) => {
+export const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <form>
-      <input
-        defaultValue={props.defaultValue}
-        type={props.type}
-        placeholder={props.placeholder}
-        name={props.name}
-        onChange={props.onChange}
-      />
+      <input {...props} />
     </form>
   );
 };
