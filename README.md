@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# Project Documentation: "Tablesheet"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The "Tablesheet" project is a React component designed to display tabular data fetched from an API endpoint. It provides features for pagination, sorting, filtering, and resetting the table.
 
-In the project directory, you can run:
+## Libraries and Dependencies Used
 
-### `npm start`
+- [React](https://reactjs.org/) - a library for building user interfaces.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Component Structure
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The "Tablesheet" component consists of the following elements:
 
-### `npm test`
+1. Table display: Renders the fetched data in a tabular format with columns for id, user, title, and completion status.
+2. Pagination buttons: Allows navigation between pages of data.
+3. Page number buttons: Displays buttons for each page to enable direct page navigation.
+4. Filter options: Provides dropdowns to filter data based on completion status, sort by ID or title, and order ascending or descending.
+5. Search input: Enables searching for specific data within the table.
+6. Reset button: Resets all filters and returns the table to its initial state.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Component States
 
-### `npm run build`
+- `table`: Holds the fetched data from the API endpoint.
+- `pageNumber`: Tracks the current page number.
+- `completed`: Tracks the completion status filter.
+- `sorted`: Tracks the sorting criteria (by ID or title).
+- `order`: Tracks the sorting order (ascending or descending).
+- `search`: Tracks the search input value.
+- `inputValue`: Tracks the input value for resetting purposes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Upon component rendering, data is fetched from the API and displayed in the table.
+2. Pagination buttons enable navigation between pages.
+3. Page number buttons allow direct page navigation.
+4. Filter options provide flexibility to filter data based on completion status, sort by different criteria, and order.
+5. Search input allows users to search for specific data within the table.
+6. Reset button resets all filters and returns the table to its initial state.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Conclusion
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The "Tablesheet" project provides a versatile solution for displaying, navigating, and filtering tabular data in a React application.
